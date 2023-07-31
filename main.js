@@ -23,6 +23,18 @@ app.use(session({
   resave: false
 }));
 
+
+app.use((req,res,next)=>{
+  res.locals.message=req.session.message;
+  delete req.session.message;
+  next();
+});
+
+app.use(express.static("uploads"));
+app.use(express.static(path.join(__dirname,'public')))
+
+
+
 // Set the views directory
 app.set('views', path.join(__dirname, 'views')); // Assuming your views folder is named "views"
 
